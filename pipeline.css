@@ -1,0 +1,86 @@
+#the-map {
+  height: 550px;
+}
+
+body {
+  font-family: "Avenir Next";
+}
+
+.legend {
+	line-height: 18px;
+	color: #555;
+}
+.legend i {
+	width: 18px;
+	height: 18px;
+	float: left;
+	margin-right: 8px;
+	opacity: 0.7;
+}
+
+h6 {
+    font-family: "Avenir Next", sans-serif;
+    font-size: 12px;
+    text-align: center;
+    margin-left: 50px;
+    margin-right: 50px;
+    color: #000000;
+}
+
+.overview{
+    font-size:20px;
+    /*margin-top: 20px;*/
+    padding-left: 4%;
+    padding-right: 30%;
+    padding-bottom: 2%;
+    color: whitesmoke;
+    text-shadow: 0 0 1px black;
+    font-family: 'Avenir Next', serif;
+    margin-bottom: 0px;
+    position:absolute;
+    bottom: 15%;
+
+}
+	
+.fullpage {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    display : none;
+    border-radius: 0;
+    min-height: 100%;
+    min-width: 100%;
+    pointer-events: none;
+}
+
+.section-opacity {
+    opacity: 1;
+    filter:alpha(opacity=100);
+    -moz-opacity:1;
+    -khtml-opacity:1;
+}
+.end-background-img {
+    background: url(img/mmiw.jpg) no-repeat center center fixed;
+}
+.overview-background-img {
+    background: url(img/mmiw2.jpg) no-repeat center center fixed;
+}
+
+.fullpage-text{
+    text-align: justify;
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    transform: translate(-5%,-5%);
+    color: white;
+}
+
+
+
+.background-fullscreen-setting {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}

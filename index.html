@@ -1,0 +1,190 @@
+<html>
+  <head>
+    <title>Leaflet Map</title>
+
+
+<!--     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+   crossorigin=""></script>
+  <script src="leaflet.ajax.js"></script>
+   <script src="leaflet.ajax.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="pipeline.css">
+     <link rel="stylesheet" type="text/css" href="dist/storymap.2.5.css">
+    <script src="dist/storymap.2.5.js"></script> -->
+
+        <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--add required stylesheets-->
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!--leaflet css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!--add favicon for the web page-->
+<!--     <link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+ -->
+    <!--Font-->
+    <link href="https://fonts.googleapis.com/css?family=Cairo" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="dist/storymap.2.5.css">
+
+    <!--add required libraries-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.js"></script>
+    <!--jquery and Popper-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+    <!--boostrap-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!--leaflet.ajax for asynchronously adding geojson data-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+
+    <!--story map plugin-->
+    <script src="dist/storymap.2.5.js"></script>
+    
+
+  
+  </head>
+  <body>
+<!--     <div id='the-map'></div>
+ -->    
+
+ <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark storymap-navbar">
+    <a class="navbar-brand" href="#">
+        <!--convert the style value to a class and then add the class to the css file.-->
+        <!--<img src="img/logo.png" class="d-inline-block align-top">-->
+        Pipeline Map
+    </a>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse">
+        <!--Create class ml-auto for the navbar items you want on the right.-->
+        <ul class="navbar-nav ml-auto">
+<!-- 
+        <li>
+          <a href="javascript:window.scrollBy(0,$('section[data-scene=scene1]').offset().top-$(window).scrollTop()-40);">Overview</a>
+        </li>
+        <li>
+          <a href="javascript:window.scrollBy(0,$('section[data-scene=scene2]').offset().top-$(window).scrollTop()-40);">Bakken Oil Fields</a>
+        </li>
+        <li>
+          <a href="javascript:window.scrollBy(0,$('section[data-scene=scene3]').offset().top-$(window).scrollTop()-40);">Williston</a>
+        </li>
+        <li>
+          <a href="javascript:window.scrollBy(0,$('section[data-scene=scene4]').offset().top-$(window).scrollTop()-40);">Camps</a>
+        </li>
+          <li>
+          <a href="about.html" target="_blank" style="color: white;"><b>About</b></a>
+        </li> -->
+        </ul>
+    </div>
+</nav>
+
+<div id="storymap" class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 storymap-story">
+            <section  data-scene="scene1">
+                 <div class= "overview-background-img background-fullscreen-setting text-responsive">
+                      <h1 class="overview">As oil booms, so does violence</h1>
+                      <h3 class="overview">
+                        Exploring the connection between pipelines and sexual violence
+                      </h3>
+                      <br/>
+                      <h5 class="overview">
+                        <i>CW: Gendered language and descriptions of sexual violence, homicide and colonial violence. </i> <br><br>
+                        There’s mounting evidence that links the presence of ‘man camps’ — temporary sites set up to house oil extraction workers in remote drilling areas — to increased rates of sexual violence and trafficking among indigenous women. This website will explore the issue, and act as a visual aid in demonstrating the sheer expansiveness of the North American pipeline network, and where these pipelines lay in relation to reservation land. Scroll or click the arrow to begin.
+</h5>
+                    </div>
+            </section>
+            <section  data-scene="scene2">
+                <h2>Bakken Oil Fields</h2>
+                <p>The Bakken Oil Fields in Western North Dakota and Northeastern Montana have emerged as one of the most prolific sources for new oil production in the United States. The "North Dakota oil boom" refers to the period of rapidly expanding oil extraction from the Bakken fields that roughly lasted from 2006 to 2012.<br><br>A <a href="http://westerncriminology.org/documents/WCR/v15n1/Ruddell.pdf">study</a> from the Western Criminology Review provides very relevant contextual data exploring the relationship between resource-based booms and crime rates. Although the study, citing missing data, did not produce enough statistical evidence to confidently prove a link, it did uncover some staggering statistics — violent crime in boom counties rose 18.5 percent between 2006 and 2012, while decreasing 25.6 percent in counties that had no oil or gas production. It also showed that by 2011, there were more than 1.6 single young men for every single young woman in the Bakken region counties most affected by the oil boom. </p>
+            </section>
+            <section  data-scene="scene3">
+                <h2>Williston</h2>
+                <p>Anecdotally, the New York Times ran a <a href="https://www.nytimes.com/2013/01/16/us/16women.html">story</a> claiming that the biggest city in the area, Williston, was particularly lucrative for sex workers and single women in the area are constantly “hounded” because of the gender imbalance brought on by man camps.<br><br>But Williston is a developed city. Many of the man camps are set up in ‘oil rich’ areas, which are almost always rural and don’t have the infrastructure to support population growth. And man camps have a significant effect on the population — this <a href="https://www.argusleader.com/story/news/2018/11/01/keystone-xl-pipeline-south-dakota-north-dakota-missouri-river/1845052002/">article</a> refers to them as temporary ‘cities’ that can bring as many as 1,400 new workers to the area. In my research, I’ve discovered at least one man camp that housed around 6,000 workers. Oil companies like TransCanada have <a href="https://www.sdnewswatch.org/stories/work-camps-traffic-concern-residents-along-keystone-xl-route/">offered</a> to improve road conditions to handle increased truck traffic from industrial projects. Arguably more important than infrastructure, though, is that these regions don’t have the law enforcement numbers to account for such a large increase in population.</p>
+            </section>
+            <section  data-scene="reservations">
+                <h2>Fort Berthold</h2>
+                <p>In 2009, McKenzie County in North Dakota of the Bakken region had just four deputies and four police officers, according to this <a href="https://www.inforum.com/news/3758120-oil-county-breaks-ground-new-jail-law-enforcement-center">article</a> appearing in the Inforum. In 2015, the county had 25 deputies and 19 police officers, after seeing a rapid increase in crime, funded in part by a $3 million <a href="https://missoulian.com/news/state-and-regional/m-federal-grant-aimed-at-bakken-oilfield-crimes-against-women/article_3bcd4acc-ccba-11e3-ad26-001a4bcf887a.html">grant</a> from the U.S. Department of Justice to help prosecute crimes against women. The grant funded counselors, shelters and the groundbreaking of a new jail. It also allowed the region to hire two special prosecutors — one on the Fort Peck Indian Reservation in Montana and another on the Fort Berthold Reservation in the heart of North Dakota’s oil patch.<br><br>Fort Berthold, like most reservations in the U.S., has a history of crimes slipping through jurisdictional cracks. Prior to 2010, few sexual assault cases in Fort Berthold were prosecuted, according to this <a href="https://www.theatlantic.com/national/archive/2013/02/on-indian-land-criminals-can-get-away-with-almost-anything/273391/">article</a> from The Atlantic. In 2011, a U.S. attorney was appointed to boost prosecution rates in Fort Berthold after the Tribal Law and Order Act passed in 2010. Between 2009 and 2011, federal case filings on North Dakota reservations rose 70 percent. In 2012, the tribal police department reported more murders, fatal accidents, sexual assaults, domestic disputes, drug busts, gun threats, and human trafficking cases than in any year before.
+</p>
+            </section>
+            <section  data-scene="athabascan">
+                <h2>Athabascan Oil Sands</h2>
+                <p>On the Canadian side of the border, similar phenomena have been seen to take effect. A 2017 <a href="https://firelight.ca/wp-content/uploads/2016/03/Firelight-work-camps-Feb-8-2017_FINAL.pdf">report</a> from the Firelight Group raised warnings about “hyper-masculine” culture in man camps, highlighting that the Fort St. James area experienced a 38 percent increase in RCMP-reported sexual assaults in one industrial project’s ﬁrst year. The Lake Babine and Nak’azdli Whut’en nations — the two tribes closest to the Fort St. James Area — ensured all health stations were stocked with rape kits for the duration of the project, according to this <a href="https://www.macleans.ca/news/canada/are-man-camps-that-house-pipeline-construction-workers-a-menace-to-indigenous-women/">article</a> in Maclean’s Magazine. The Nak'azdli nation had just 1,972 members <a href="https://www.nationalobserver.com/2017/09/21/news/pipeline-man-camps-loom-over-bcs-highway-tears">living</a> both on and off reserves, and the camp brought about 4,500 workers, most of whom were male, to the area. The nearest city, Prince George, is 100 miles (160 km) away.
+</p>
+            </section>
+
+            <section  data-scene="scene4">
+                <h2>Permian Basin</h2>
+                <p>New methods like horizontal drilling and fracking have made it so that places once thought to have been exhausted can be revisited to extract more oil. Beyond Bakken and Athabascan, the Permian basin in western Texas and southeastern New Mexico is a site for recent pipeline construction.<br><br> 
+
+There aren’t nearly as many reservations in this region as there are near the Northern border, but the Permian basin is worth noting because it's where we'll likely see man camps pop up in the near future. Indigenous activists have been speaking about the issue of man camps for <a href="https://theintercept.com/2018/07/01/nuuca-bakken-oil-boom-sexual-violence/">decades</a>, but it's only recently <a href="https://newrepublic.com/article/155367/connection-pipelines-sexual-violence">captured</a> broader audiences. As man camps are brought in to less-populated, less-resourced areas, there’s a need to listen to Indigenous activists, monitor the situation in the Permian Basin and hold oil and man camp companies accountable for what transpires in these camps.
+</p>
+            </section>
+<!--             </div>
+                    <div class="col-sm-6 col-md-4 storymap-story"> -->
+                      
+            <section data-scene="scene5">
+                <h2>In Closing</h2>
+                <p>Most of the literature surrounding this issue explain how man camps affect overall trends of crime rates and violence against indigenous women — very few of the studies, reports and articles I read called out individual cases and instead anonymized the women who have gone missing and/or have been murdered. I found a tragic <a href="https://www.cbsnews.com/news/teachers-killer-gets-80-years-in-montana-prison/">story</a> of a teacher who was kidnapped and murdered by two men looking for oil work in north western North Dakota. <a href="https://theintercept.com/2018/07/01/nuuca-bakken-oil-boom-sexual-violence/">This</a> documentarian recalled being hit on by obviously drunk oil workers in Bakken while she was researching the issue, which perhaps speaks to the dynamic of man camps. Anecdotally, I browsed through Reddit and watched Youtube videos to get a feel for what it’s like to live in a man camp, and several users indicated that they were hotbeds for alcoholism and generally rowdy behavior.<br><br>
+
+It’s important to keep in mind that distrust in law enforcement and the rural nature of these areas plays a part in how few stories there are. Verna Power, the Lake Babine nation councillor who pushed for rape kits to be readily available, <a href="https://www.macleans.ca/news/canada/are-man-camps-that-house-pipeline-construction-workers-a-menace-to-indigenous-women/">said</a> that her sense of caution stems from an experience two decades ago, when she was one of four women at a 200-person camp outside Fort Nelson, British Columbia. She did not go into detail, but offered the following — “Nobody should be subjected to the way some of us had to live.”<br><br>
+
+One last disconnected, albeit poignant, note. Indigenous activist Roxanne White <a href="https://blogs.scientificamerican.com/voices/the-darkest-side-of-fossil-fuel-extraction/">said</a> “the first man camp was in 1492” — this country, she continued, has a history of treating indigenous women as “disposable” and that today’s “man camps” are the latest iteration of colonial resource extraction. Such extraction relies on destroying land and constructing power dynamics, and few things reinforce such dynamics more than sexual exploitation.<br><br>Read about my methodology <a href="about.html">here</a>.
+ 
+ </p>
+            </section>
+        </div>
+        <div class="col-sm-6 col-md-8 storymap-map"></div>
+</div>
+</div>
+
+  </body>
+   <script src="data/newpipelines.js"></script>
+   <script src="data/crudeoil.js"></script>
+   <script src="data/reservations.js"></script>
+   <script src="data/petrolproduct.js"></script>
+
+<script type="text/javascript" src="pipeline.js"></script>
+
+</script>
+  <!-- <script>
+    var map = L.map('the-map').setView([38.82,-121.143162], 11);
+L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {attribution:'&copy; <ahref="https://www.openstreetmap.org/copyright">OpenStreetMap</a>contributors'}, 
+  { minZoom:'10', maxZoom: '50' }).addTo(map);
+
+var marker = L.marker([38.743843, -121.143162], {title: 'Folsom Lake'});
+marker.bindPopup('This is where I first learned to <a href="http://www.californiasgreatestlakes.com/folsom/folsom_lake.html">kayak</a>!')
+marker.addTo(map)
+
+var newmarker = L.marker([38.7442701, -121.1828414], {title: 'Granite Bay Branch Library'});
+
+newmarker.bindPopup('My first job: shelving books at the local library')
+
+newmarker.addTo(map)
+
+var finalmarker = L.marker([38.8965715, -121.0760698], {title: 'School Park'});
+
+finalmarker.bindPopup('I played my first solo during a Symphony in the Park concert — right here!')
+
+finalmarker.addTo(map)
+//var dragme = L.marker([38.72, -121.3], {title: 'Drag and click for coordinates', draggable: true});
+
+//var dragpopup = L.popup().setContent('This is ' + dragme.getLatLng().toString());
+
+//dragme.on('dragend', function() {popup.setContent('This is ' + dragme.getLatLng().toString()).update(); dragme.openPopup();});
+
+//dragme.addTo(map).bindPopup(dragpopup).openPopup();
+
+//dragme.on('dragend', function() {popup.setContent('This is ' + dragme.getLatLng().toString()).update();dragme.openPopup();});
+</script> -->
+</html>

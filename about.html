@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<link rel="icon" href="img/favicon.ico" width="16" height="16" type="image/x-icon"/>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>About the Pipeline Project</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <!--favicon-->
+    <link rel="icon" href="img/favicon.ico" width="16" height="16" type="image/x-icon"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- MapboxGL CSS -->
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.35.1/mapbox-gl.css" rel='stylesheet' />
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/main.css" />
+    <link href="https://fonts.googleapis.com/css?family=Francois+One" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--d3-->
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <!--Google Fonts-->
+    <!--Leaflet Javascript -->
+    <!--<script src="https://cdn.leafletjs.com/leaflet/v1.0.3/leaflet.js"></script>-->
+    <!--MapboxGL Javascript-->
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.35.1/mapbox-gl.js"></script>
+    <!--Leaflet Mapbox Javascript-->
+    <script src="https://rawgit.com/mapbox/mapbox-gl-leaflet/master/leaflet-mapbox-gl.js"></script>
+    <script src="https://ivansanchez.gitlab.io/Leaflet.TileLayer.GL/src/Leaflet.TileLayer.GL.js"></script>
+
+
+    <!--Bootstrap Javascript-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--<script src="js/spatialsankey-custom.js"></script>-->
+    <style> h2 {
+        padding-bottom: 20px
+    }
+    </style>
+</head>
+
+<body>
+<!--Facebook sharing-->
+<!-- <div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script> -->
+
+<!--Build Bootstrap Navbar-->
+<div>
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+        <div class="container-fluid">
+           
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+</div>
+
+
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+            <br><br><h1 class="page-header"></h1>
+            <ol class="breadcrumb">
+                <b><li><a href="index.html"><font size="6px">Go to the Storymap</font></a></b></li>
+                <!-- <b><li class="active">About</li></b>-->
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+
+
+
+    <!-- Intro Content -->
+    <div class="row">
+        <div>
+            <h2 class="h2_about">Project Motivations</h2>
+            <p style="text-align:justify">
+                Indigenous communities across the United States and Canada are in the midst of a multi-generational crisis of sexual violence and femicide. Women and girls are disappearing in an epidemic known as MMIW (Missing and Murdered Indigenous Women) — rates of violence against American Native and Alaska Native women are up to ten times as high as the national average. While there were an estimated 5,712 cases of missing Indigenous women in 2016, only 116 cases were logged by the U.S. Department of Justice’s federal missing persons database, NamUs. After researching the MMIW issue at a macro level, the Human Rights Center's U.S.-Candada Border team honed in on the potential connection between violence against Indigenous women and oil. Because the issue is so complex, and the research methodology has several layers to it, the team thought a visual output would be necessary to fully explain their findings. This website is a draft, and is meant to show what the eventual visual output could  look like.<br><br>
+                
+            </p>
+        </div>
+
+    </div>
+    
+    <h2 class="h2_about">Methodology</h2>
+    <p style="text-align: justify">
+        <strong>1. Data</strong><br>
+          The pipeline data was collected from the U.S. Energy Information Administration and from FracTracker Alliance, a non-profit investigating health concerns surrounding extractive processes. The Indigenous reservation data was collected from the U.S. Department of Homeland Security. The pipeline data is not exhaustive, but comprehensive enough to display just how expansive the North American pipeline network truly is.<br>
+    </p>
+    <p style="...; text-align: justify">
+        <strong>2. QGIS</strong><br>
+        Several of the pipelines overlapped in the shapefiles, as they were downloaded from separate sources. I used the clip tool to reduce file size and also converted the shapefiles into a geoJSON file format in QGIS.<br>
+    </p>
+    <p style="text-align: justify">
+        <strong>3. Design and Program</strong><br>
+        &nbsp &nbsp •    Storymap:  Storymap.js provides the core framework of this website. The storymap is made up of the following scenes: Overview, Bakken Oil Fields, Williston, Fort Berthold, Athabascan Oil Sands, Permian Basin and Closing. For each scene, the map will zoom and display the highlighted region, and the panel will display contextual information. Fort the Fort Berthold scene, the basemap changes from Grayscale to a Satellite view.<br>
+        &nbsp &nbsp •    Leaflet: Leaflet is the leading open-source JavaScript library for mobile-friendly interactive maps, and supports the map of this website.<br>
+        &nbsp &nbsp •    Bootstrap: Bootstrap framework was used for the navbar, and to aid in the alignment of text and other visual elements.<br>
+    </p>
+
+    <!--Tutorial-->
+    <h2 class="h2_about">Website Components</h2>
+    <p style="text-align: justify">
+        <b>1)</b> Navigation bar: click on a section, and the webmap will jump to a particular page.<br>
+    </p>
+    <p style="text-align: justify">
+        <b>2)</b> Tooltip labels: hover over a pipeline or reservation for additional information.<br>
+    </p>
+    <p style="text-align: justify">
+        <b>3)</b> Custom legend: explains the map's coloring.<br>
+    </p>
+    <p style="text-align: justify">
+        <b>4)</b> Next page button: click on the arrow to proceed to the next section of the website.<br>
+    </p>
+    <p style="text-align: justify">
+        <b>5)</b> Progress bar: the bar will show the reader how much of the story they've read.<br>
+    </p>
+
+    <img src="img/tutorial_1.jpg" height="500" width="800" class="img-responsive" style="padding-top: 20px; padding-bottom: 10px; margin: auto"/>
+    <img src="img/tutorial_2.jpg" height="500" width="800" class="img-responsive" style="padding-top: 20px; padding-bottom: 10px; margin: auto"/>
+
+    <div style="text-align: center"><i>Tutorial of project functions.</i></div>
+    </p>
+ 
+    <!-- Footer -->
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Reflections</h2>
+                <p style="text-align: justify">I intuitively knew that the oil industry is disruptive to native communities before working on this project — the high-profile coverage of the Dakota Access Pipeline in relation to the Standing Rock Reservation is a prime example. But even knowing this, I was suprised to see the almost overwhelming amount of pipelines in North America after building this map — it put a lot of things into perspective for me. The Phillips 66 pipeline, for example, cuts straight through the Crow Reservation, and that's not the only case of such clear disruption to the land. I think this map is powerful in a couple of different ways. When it comes to relationships between the oil industry and indigenous communities, most people's educations begin and end with Standing Rock — Standing Rock, however, is not the only reservation affected by pipelines and the potential for oil spills, as this map clearly demonstrates. It also shows the effects of Oil Booms, and how several companies are still constructing pipelines despite the fact that so many already exist. From a research perspective, the map helps illustrate which companies have a presence in different regions, and helped in narrowing search terms for when I was writing the essay. Looking at the Bakken region, for example, I knew to search for articles relating to the Fort Berthold and Fort Peck reservations, and pipelines managed by Transcanada and Enbridge, among other companies. We've talked a lot in class about how maps can help readers in understanding a story, but they can also be helpful to the storyteller in writing it.<br><br>
+                Regarding design, I chose colors for the pipelines that are, in my opinion, evocative of violence (reds and orange, mostly). Initially, I had categorized the pipelines as "new" and "old," and colored the new pipelines as blue, because it seemed like a modern color. I realized, though, that several blue lines on a map look more like rivers than they do an invasive pipeline. I decided to switch the categorization of the pipelines to convey the stage of development instead, which I think is more relevant to the story anyway. I chose a gray color for the operating pipelines, which seemed appropriate given that oil is a very muddy, blackish color. The data itself did the work for me in conveying the violent nature of these pipelines — having several jagged lines of varying reddish hues intersect and obscure the shape of reservation areas beneath is impactful, in my opinion. I chose a more golden color for the reservations so that it would not clash with the warm colors of the pipelines, but is also understood to be separate.<br><br>
+                The map alone does not appropriately address the issue I looked into — especially because man camps are not even represented as a layer in the map. I found some sources of location data for man camps, but because these camps are temporary, the datasets couldn't be combined because they captured different points in time. I didn't know how to convey this nuance in the website, so I decided to explain the issue from a high-level, and focus in on regions where some of the most disastrous effects have been seen to take place. Taking this approach meant that there was a lot of context that needed to be explained in writing, and couldn't be discerned from the map.</p>
+                <br>
+                <h2 class="h2_about">Acknowledgement</h2>
+                <p style="text-align:justify">
+                    I would like to thank Xiaowei Wang and Will Payne for guidance throughout the semester when it comes to making webmaps. Their geography class excited me in a way that's been rare in my college career, and I truly learned so much.<br>
+                </p>
+                <h2 class="h2_about">References</h2>
+                <p>
+                    [1] Eligon, John. "An Oil Town Where Men Are Many, and Women Are Hounded." New York Times, 15 Jan 2013. Web. 15 Dec 2019.<br>
+                    [2] Pfankuch, Bart. "Work camps, traffic concern residents along Keystone XL route." Argus Leader, 1 Nov 2018. Web. 15 Dec 2019.<br>
+                    [3] Dalrymple, Amy. "Oil county breaks ground on new jail, law enforcement center." Inforum, 2 Jun 2015. Web. 18 Dec 2019.<br>
+                    [4] MacPherson, James. "A $3M federal grant aimed at Bakken oilfield crimes against women." Associated Press,  25 Apr 2015. Web. 18 Dec 2019.<br>
+                    [5] Crane-Murdoch, Sierra. "On Indian Land, Criminals Can Get Away With Almost Anything." The Atlantic,  22 Feb 2013. Web. 18 Dec 2019.<br>
+                    [6] Nation, Lake Babine, and Nak’azdli Whut’en. “Indigenous Communities and Industrial Camps: Promoting Healthy Communities in Settings of Industrial Change.” The Firelight Group, February 2017. Web. 12 Dec 2019. <br>
+                    [7] Markusoff, Jason. "Are ‘man camps’ that house pipeline construction workers a menace to Indigenous women?" MacLean’s Magazine,  31 May 2018. Web. 18 Dec 2019.<br>
+                    [8] Morin, Brandi. "Pipeline 'man camps' loom over B.C.'s Highway of Tears." National Observer,  21 Sept 2017. Web. 18 Dec 2019.<br>
+                    [9] Brown, Matthew. "Teacher's killer gets 80 years in prison" Associated Press,  15 Dec 2014. Web. 18 Dec 2019.<br>
+                    [10] Brown, Alleen. "A new film examines sexual examines sexual violence as a feature of the Bakken oil boom." The Intercept,  1 July 2018. Web. 18 Dec 2019.<br>
+                    [11] Clabots, Barbara. "The Darkest Side of Fossil-Fuel Extraction." Scientific American,  14 Oct 2019. Web. 18 Dec 2019.
+
+
+
+                </p>
+            </div>
+        </div>
+    </footer>
+
+</div>
+
+</body>
+
+</html>
