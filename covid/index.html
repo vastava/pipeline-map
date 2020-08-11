@@ -210,7 +210,7 @@
         // Here we're using d3 to help us make the ajax request but you can use
         // Any request method.
         d3.json(
-            '/covid/data/counties_covid_usa_aug2020.geojson',
+            'https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/counties_covid_usa_aug2020.geojson',
             function(err, data) {
                 if (err) throw err;
 
@@ -296,7 +296,7 @@
             }
         );
 
-        d3.json('/covid/data/kxl_route.geojson', function(err, data) {
+        d3.json('https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/kxl_route.geojson', function(err, data) {
             if (err) throw err;
             map.addSource('kxl', {
                     'type': 'geojson',
@@ -318,7 +318,7 @@
 
         })
 
-        d3.json('/covid/data/ihs_facilities.geojson', function(err, data) {
+        d3.json('https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/ihs_facilities.geojson', function(err, data) {
             if (err) throw err;
             map.addSource('ihs', {
                 'type': 'geojson',
