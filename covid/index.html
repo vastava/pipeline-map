@@ -104,7 +104,7 @@
 </style>
 
 <div id="map"></div>
-
+<div id="static"></div>
 <div class="map-overlay top">
     <div class="map-overlay-inner">
         <h2>COVID-19 by county</h2>
@@ -131,6 +131,7 @@
 <!-- <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
  -->
 <script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/queue.v1.min.js"></script>
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoidmFzdGF2YSIsImEiOiJja2F3cXAwbm8yZWF3MnFwbHgwNW1mYzJjIn0.MhdHxkvWsbbjRyjqtNKP7Q';
     var map = new mapboxgl.Map({
@@ -161,64 +162,17 @@
         '8/1/20'
     ];
 
-    // function filterBy(month) {
-    //     var filters = ['==', 'month', month];
-    //     map.setFilter('countiesLayer', filters);
-    //     document.getElementById('month').textContent = months[month];
-    // }
+    queue()
+    	.defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/counties_covid_usa_aug2020.geojson")
+    	.defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/kxl_route.geojson")
+    	.defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/ihs_facilities.geojson")
+    	.await(ready);
 
-//updates map acc. to slider value
-
-    function update(ind) {
-        var temp = dates[ind]
-        return ['interpolate', ['linear'], ['get', temp], 0, '#FFFED6', 25, "#CAEABF", 50, "#5CC1C0", 500, '#26388F']
-    }
-
-    map.on('load', function() {
-        //Color guide
-        // 'NON-IHS',
-        //                 '#F0B92E',
-        //                 'Tribal',
-        //                 '#BF2193',
-        //                 'Title 1 (Tribal)',
-        //                 '#BF2193',
-        //                 'Title 5 (638)',
-        //                 '#BF2193',                                                
-        //                 'Title 5 (Tribal)',
-        //                 '#BF2193',                                                        
-        //                 'Urban',
-        //                 '#EB6811',
-        //                 'IHS',
-        //                 '#8F12BA'
-        //
-        var layers = [' IHS', ' Tribal', ' Urban', ' Non-IHS'];
-        var colors = ['#8F12BA', '#E70283', '#EB6811', '#F0B92E'];
-
-        //legend
-        for (i = 0; i < layers.length; i++) {
-              var layer = layers[i];
-              var color = colors[i];
-              var item = document.createElement('div');
-              var key = document.createElement('span');
-              key.className = 'legend-circle';
-              key.style.backgroundColor = color;
-
-              var value = document.createElement('span');
-              value.innerHTML = layer;
-              item.appendChild(key);
-              item.appendChild(value);
-              legend.appendChild(item);}
-
-        // Here we're using d3 to help us make the ajax request but you can use
-        // Any request method.
-        d3.json(
-            'https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/counties_covid_usa_aug2020.geojson',
-            function(err, data) {
-                if (err) throw err;
-
-                map.addSource('counties', {
+    	function ready(error, file1, file2, file3) {
+    		//create map
+    		map.addSource('counties', {
                     'type': 'geojson',
-                    data: data
+                    data: file1
                 });
 
                 map.addLayer({
@@ -245,64 +199,9 @@
                     }
                 });
 
-                //move county layer under KXL
-                map.moveLayer('countiesLayer', 'kxl')
-
-                //get slider value + update map
-                document
-                    .getElementById('slider')
-                    .addEventListener('input', function(e) {
-                        var ind = parseInt(e.target.value, 10);
-                        sliderIndex = ind;
-                        document.getElementById('date').textContent = dates[ind];
-                        map.setPaintProperty('countiesLayer', 'fill-color', update(ind));
-                    });
-
-                    //move code to end
-
-            //     var popup = new mapboxgl.Popup({
-            //         closeButton: false,
-            //         closeOnClick: false
-            //     });
-                 
-            //     map.on('mouseenter', 'countiesLayer', function(e) {
-            //     // Change the cursor style as a UI indicator.
-            //         map.getCanvas().style.cursor = 'pointer';
-                    
-            //         var name = e.features[0].properties.NAME
-            //         var state = e.features[0].properties.State
-            //         var coordinates = e.features[0].geometry.coordinates.slice();
-            //         var name = e.features[0].properties.Facility_Name;
-            //         var affiliation = e.features[0].properties.Affiliation;
-            //         var description = '<strong>' + name + '</strong>' + '<br>' + city + ', ' + state + '<br>' + affiliation + ' affiliated';
-                     
-            //         // Ensure that if the map is zoomed out such that multiple
-            //         // copies of the feature are visible, the popup appears
-            //         // over the copy being pointed to.
-            //         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            //             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-            //     }
-                 
-            //     // Populate the popup and set its coordinates
-            //     // based on the feature found.
-            //     popup
-            //         .setLngLat(coordinates)
-            //         .setHTML(description)
-            //         .addTo(map);
-            //     });
-                 
-            //     map.on('mouseleave', 'ihsPoints', function() {
-            //         map.getCanvas().style.cursor = '';
-            //         popup.remove();
-            // });
-            }
-        );
-
-        d3.json('https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/kxl_route.geojson', function(err, data) {
-            if (err) throw err;
             map.addSource('kxl', {
                     'type': 'geojson',
-                    data: data
+                    data: file2
                     });
 
             map.addLayer({
@@ -318,13 +217,9 @@
                 }
             });
 
-        })
-
-        d3.json('https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/ihs_facilities.geojson', function(err, data) {
-            if (err) throw err;
             map.addSource('ihs', {
                 'type': 'geojson',
-                data: data
+                data: file3
             });
 
             var pink = "#E70283";
@@ -369,43 +264,284 @@
                 // 'text-anchor': 'top'
                 }
             })
-        })
-//     var popup = new mapboxgl.Popup({
-//         closeButton: false,
-//         closeOnClick: false
-//     });
+
+
+                //move county layer under KXL
+            map.moveLayer('countiesLayer', 'kxl')
+
+                //get slider value + update map
+                document
+                    .getElementById('slider')
+                    .addEventListener('input', function(e) {
+                        var ind = parseInt(e.target.value, 10);
+                        sliderIndex = ind;
+                        document.getElementById('date').textContent = dates[ind];
+                        map.setPaintProperty('countiesLayer', 'fill-color', update(ind));
+                    });
+
+    	}
+
+        //
+        var layers = [' IHS', ' Tribal', ' Urban', ' Non-IHS'];
+        var colors = ['#8F12BA', '#E70283', '#EB6811', '#F0B92E'];
+    	//map.on('load', function() {
+    	for (i = 0; i < layers.length; i++) {
+              var layer = layers[i];
+              var color = colors[i];
+              var item = document.createElement('div');
+              var key = document.createElement('span');
+              key.className = 'legend-circle';
+              key.style.backgroundColor = color;
+
+              var value = document.createElement('span');
+              value.innerHTML = layer;
+              item.appendChild(key);
+              item.appendChild(value);
+              legend.appendChild(item);}
+    	//})
+
+    // function filterBy(month) {
+    //     var filters = ['==', 'month', month];
+    //     map.setFilter('countiesLayer', filters);
+    //     document.getElementById('month').textContent = months[month];
+    // }
+
+//updates map acc. to slider value
+
+    function update(ind) {
+        var temp = dates[ind]
+        return ['interpolate', ['linear'], ['get', temp], 0, '#FFFED6', 25, "#CAEABF", 50, "#5CC1C0", 500, '#26388F']
+    }
+
+//     map.on('load', function() {
+//         //Color guide
+//         // 'NON-IHS',
+//         //                 '#F0B92E',
+//         //                 'Tribal',
+//         //                 '#BF2193',
+//         //                 'Title 1 (Tribal)',
+//         //                 '#BF2193',
+//         //                 'Title 5 (638)',
+//         //                 '#BF2193',                                                
+//         //                 'Title 5 (Tribal)',
+//         //                 '#BF2193',                                                        
+//         //                 'Urban',
+//         //                 '#EB6811',
+//         //                 'IHS',
+//         //                 '#8F12BA'
+
+        //legend
+        // for (i = 0; i < layers.length; i++) {
+        //       var layer = layers[i];
+        //       var color = colors[i];
+        //       var item = document.createElement('div');
+        //       var key = document.createElement('span');
+        //       key.className = 'legend-circle';
+        //       key.style.backgroundColor = color;
+
+        //       var value = document.createElement('span');
+        //       value.innerHTML = layer;
+        //       item.appendChild(key);
+        //       item.appendChild(value);
+        //       legend.appendChild(item);}
+
+//         // Here we're using d3 to help us make the ajax request but you can use
+//         // Any request method.
+//         d3.json(
+//             'https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/counties_covid_usa_aug2020.geojson',
+//             function(err, data) {
+//                 if (err) throw err;
+
+//                 map.addSource('counties', {
+//                     'type': 'geojson',
+//                     data: data
+//                 });
+
+//                 map.addLayer({
+//                     'id': 'countiesLayer',
+//                     'type': 'fill',
+//                     'source': 'counties',
+//                     'paint': {
+//                         'fill-color': [
+//                             'interpolate',
+//                             ['linear'],
+//                             ['get', '3/1/20'],
+//                             0,
+//                             '#FFFED6',
+//                             25,
+//                             "#CAEABF",
+//                             50,
+//                             "#5CC1C0",
+//                             500,
+//                             '#26388F',
+
+//                         ],
+//                         'fill-opacity': 0.9,
+//                         'fill-outline-color': 'white'
+//                     }
+//                 });
+
+//                 //move county layer under KXL
+//                 map.moveLayer('countiesLayer', 'kxl')
+
+//                 //get slider value + update map
+//                 document
+//                     .getElementById('slider')
+//                     .addEventListener('input', function(e) {
+//                         var ind = parseInt(e.target.value, 10);
+//                         sliderIndex = ind;
+//                         document.getElementById('date').textContent = dates[ind];
+//                         map.setPaintProperty('countiesLayer', 'fill-color', update(ind));
+//                     });
+
+//                     //move code to end
+
+//             //     var popup = new mapboxgl.Popup({
+//             //         closeButton: false,
+//             //         closeOnClick: false
+//             //     });
+                 
+//             //     map.on('mouseenter', 'countiesLayer', function(e) {
+//             //     // Change the cursor style as a UI indicator.
+//             //         map.getCanvas().style.cursor = 'pointer';
+                    
+//             //         var name = e.features[0].properties.NAME
+//             //         var state = e.features[0].properties.State
+//             //         var coordinates = e.features[0].geometry.coordinates.slice();
+//             //         var name = e.features[0].properties.Facility_Name;
+//             //         var affiliation = e.features[0].properties.Affiliation;
+//             //         var description = '<strong>' + name + '</strong>' + '<br>' + city + ', ' + state + '<br>' + affiliation + ' affiliated';
+                     
+//             //         // Ensure that if the map is zoomed out such that multiple
+//             //         // copies of the feature are visible, the popup appears
+//             //         // over the copy being pointed to.
+//             //         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+//             //             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+//             //     }
+                 
+//             //     // Populate the popup and set its coordinates
+//             //     // based on the feature found.
+//             //     popup
+//             //         .setLngLat(coordinates)
+//             //         .setHTML(description)
+//             //         .addTo(map);
+//             //     });
+                 
+//             //     map.on('mouseleave', 'ihsPoints', function() {
+//             //         map.getCanvas().style.cursor = '';
+//             //         popup.remove();
+//             // });
+//             }
+//         );
+
+//         d3.json('https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/kxl_route.geojson', function(err, data) {
+//             if (err) throw err;
+//             map.addSource('kxl', {
+//                     'type': 'geojson',
+//                     data: data
+//                     });
+
+//             map.addLayer({
+//                 'id': 'kxl',
+//                 'type': 'line',
+//                 'source': 'kxl',
+//                 'layout': {},
+//                 'paint': {
+//                     'line-color': 'red',
+//                     'line-dasharray': [2, 1]
+//                 // 'fill-color': 'red',
+//                 // 'fill-opacity': 0.8
+//                 }
+//             });
+
+//         })
+
+//         d3.json('https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/ihs_facilities.geojson', function(err, data) {
+//             if (err) throw err;
+//             map.addSource('ihs', {
+//                 'type': 'geojson',
+//                 data: data
+//             });
+
+//             var pink = "#E70283";
+//             // alt = '#BF2193'
+//             map.addLayer({
+//                 'id': 'ihsPoints',
+//                 'type': 'circle',
+//                 'source': 'ihs',
+//                 'paint': {
+//                     'circle-radius': 3,
+//                     // 'circle-color': '#223b53',
+//                     'circle-color': '#F0B92E',
+//                     'circle-color': [
+//                         'match',
+//                         ['get', 'Affiliation'],
+//                         'NON-IHS',
+//                         '#F0B92E',
+//                         'Tribal',
+//                         pink,
+//                         'Title 1 (Tribal)',
+//                         pink,
+//                         'Title 5 (638)',
+//                         pink,                                                
+//                         'Title 5 (Tribal)',
+//                         pink,                                                        
+//                         'Urban',
+//                         '#EB6811',
+//                         'IHS',
+//                         '#8F12BA',
+//                         /* other */ 'black'
+//                         ],
+//                     'circle-stroke-color': 'white',
+//                     'circle-stroke-width': 1,
+//                     'circle-opacity': 0.9
+//                 // // get the icon name from the source's "icon" property
+//                 // // concatenate the name to get an icon from the style's sprite sheet
+//                 // 'icon-image': ['concat', ['get', 'icon'], '-15'],
+//                 // // get the title name from the source's "title" property
+//                 // 'text-field': ['get', 'title'],
+//                 // 'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+//                 // 'text-offset': [0, 0.6],
+//                 // 'text-anchor': 'top'
+//                 }
+//             })
+//         })
+// //     var popup = new mapboxgl.Popup({
+// //         closeButton: false,
+// //         closeOnClick: false
+// //     });
      
-//     map.on('mouseenter', 'ihsPoints', function(e) {
-//     // Change the cursor style as a UI indicator.
-//         map.getCanvas().style.cursor = 'pointer';
+// //     map.on('mouseenter', 'ihsPoints', function(e) {
+// //     // Change the cursor style as a UI indicator.
+// //         map.getCanvas().style.cursor = 'pointer';
         
-//         var city = e.features[0].properties.City
-//         var state = e.features[0].properties.State
-//         var coordinates = e.features[0].geometry.coordinates.slice();
-//         var name = e.features[0].properties.Facility_Name;
-//         var affiliation = e.features[0].properties.Affiliation;
-//         var description = '<strong>' + name + '</strong>' + '<br>' + city + ', ' + state + '<br>' + affiliation + ' affiliated';
+// //         var city = e.features[0].properties.City
+// //         var state = e.features[0].properties.State
+// //         var coordinates = e.features[0].geometry.coordinates.slice();
+// //         var name = e.features[0].properties.Facility_Name;
+// //         var affiliation = e.features[0].properties.Affiliation;
+// //         var description = '<strong>' + name + '</strong>' + '<br>' + city + ', ' + state + '<br>' + affiliation + ' affiliated';
          
-//         // Ensure that if the map is zoomed out such that multiple
-//         // copies of the feature are visible, the popup appears
-//         // over the copy being pointed to.
-//         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-//             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-//     }
+// //         // Ensure that if the map is zoomed out such that multiple
+// //         // copies of the feature are visible, the popup appears
+// //         // over the copy being pointed to.
+// //         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+// //             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+// //     }
      
-//     // Populate the popup and set its coordinates
-//     // based on the feature found.
-//     popup
-//         .setLngLat(coordinates)
-//         .setHTML(description)
-//         .addTo(map);
-//     });
+// //     // Populate the popup and set its coordinates
+// //     // based on the feature found.
+// //     popup
+// //         .setLngLat(coordinates)
+// //         .setHTML(description)
+// //         .addTo(map);
+// //     });
      
-//     map.on('mouseleave', 'ihsPoints', function() {
-//         map.getCanvas().style.cursor = '';
-//         popup.remove();
-// });
-    })
+// //     map.on('mouseleave', 'ihsPoints', function() {
+// //         map.getCanvas().style.cursor = '';
+// //         popup.remove();
+// // });
+//     })
 //popups
 
     var popup = new mapboxgl.Popup({
