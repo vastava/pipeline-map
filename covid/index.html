@@ -163,10 +163,42 @@
     ];
 
     queue()
-    	.defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/counties_covid_usa_aug2020.geojson")
-    	.defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/kxl_route.geojson")
-    	.defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/ihs_facilities.geojson")
-    	.await(ready);
+    	// .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/counties_covid_usa_aug2020.geojson")
+    	.defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/filtered_covid_aug.geojson")
+        .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/kxl_route.geojson")
+        .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/ihs_facilities.geojson")
+        .await(ready);
+        //Progress bar
+        // .defer(function(f) {
+        //     d3.json("https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/filtered_covid_aug.geojson")
+        //         .on("progress", function() {
+        //             console.log(d3.event.loaded)
+        //             var i = d3.interpolate(progress, d3.event.loaded / total);
+        //             d3.transition().tween("progress", function() {
+        //                 return function(t) {
+        //                     progress = i(t);
+        //                     foreground.attr("d", arc.endAngle(twoPi * progress));
+        //                             text.text(formatPercent(progress));
+        //                           };
+        //         })
+        // })
+    	// .await(ready);
+
+      //   d3.csv(filepath3)
+      // .on("progress", function() {
+      //   console.log(d3.event.loaded) // this never updates
+      //   var i = d3.interpolate(progress, d3.event.loaded / total);
+      //   d3.transition().tween("progress", function() {
+      //     return function(t) {
+      //       progress = i(t);
+      //       foreground.attr("d", arc.endAngle(twoPi * progress));
+      //       text.text(formatPercent(progress));
+      //     };
+      //   });
+      // })
+      // .get(function(error, data) {
+      //   f(error, data);
+      // })
 
     	function ready(error, file1, file2, file3) {
     		//create map
