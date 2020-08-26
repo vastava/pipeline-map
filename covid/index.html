@@ -101,9 +101,28 @@
 /*          text-anchor: start;
 *//*          transform: translate(-10px);
 */}
-</style>
 
+    .loader {
+      border: 16px solid #f3f3f3; /* Light grey */
+      border-top: 16px solid #3498db; /* Blue */
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-60px, -60px);
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: translate(-60px, -60px) rotate(0deg); }
+      100% { transform: translate(-60px, -60px) rotate(360deg); }
+}
+</style>
 <div id="map"></div>
+<div id="loadCircle" class="loader"></div>
 <div id="static"></div>
 <div class="map-overlay top">
     <div class="map-overlay-inner">
@@ -165,9 +184,20 @@
     queue()
     	// .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/counties_covid_usa_aug2020.geojson")
     	.defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/filtered_covid_aug.geojson")
+        // .defer(geoJsonHelper, "/data/filtered_covid_aug.min.topojson")
         .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/kxl_route.geojson")
         .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/ihs_facilities.geojson")
         .await(ready);
+
+        function geoJsonHelper(url) {
+            d3.json(url, function(data) {
+                localStorage.clear();
+                localStorage.setItem('data',JSON.stringify(data));
+                var retrievedObject = localStorage.getItem('data');
+                data=JSON.parse(retrievedObject);
+                return data;
+            })
+        }
         //Progress bar
         // .defer(function(f) {
         //     d3.json("https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/filtered_covid_aug.geojson")
@@ -310,6 +340,7 @@
                         document.getElementById('date').textContent = dates[ind];
                         map.setPaintProperty('countiesLayer', 'fill-color', update(ind));
                     });
+            document.getElementById("loadCircle").style.display = "none";
 
     	}
 
