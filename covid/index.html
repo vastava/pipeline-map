@@ -151,6 +151,7 @@
  -->
 <script src="https://d3js.org/d3.v4.js"></script>
 <script src="https://d3js.org/queue.v1.min.js"></script>
+<script src="https://d3js.org/topojson.v1.min.js"></script>
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoidmFzdGF2YSIsImEiOiJja2F3cXAwbm8yZWF3MnFwbHgwNW1mYzJjIn0.MhdHxkvWsbbjRyjqtNKP7Q';
     var map = new mapboxgl.Map({
@@ -183,7 +184,8 @@
 
     queue()
     	// .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/counties_covid_usa_aug2020.geojson")
-    	.defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/filtered_covid_aug.geojson")
+    	// .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/filtered_covid_aug.geojson")
+      .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/filtered_covid_aug.min.topojson")
         // .defer(geoJsonHelper, "/data/filtered_covid_aug.min.topojson")
         .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/kxl_route.geojson")
         .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/ihs_facilities.geojson")
@@ -231,10 +233,13 @@
       // })
 
     	function ready(error, file1, file2, file3) {
+        // console.log(file1);
+        var counties = topojson.feature(file1, file1.objects.collection);
+        // console.log(counties);
     		//create map
     		map.addSource('counties', {
                     'type': 'geojson',
-                    data: file1
+                    data: counties
                 });
 
                 map.addLayer({
