@@ -129,7 +129,7 @@
         <h2>COVID-19 by county</h2>
         <i>Drag the slider to see the number of cases over time.</i><br>
         <label id="date">3/1/20</label>
-        <input id="slider" type="range" min="0" max="10" step="1" value="0" />
+        <input id="slider" type="range" min="0" max="12" step="1" value="0" />
         <div id="legend" class="legend">
             <div class="bar"></div>
             <div class='row labels'>
@@ -179,13 +179,15 @@
         '6/15/20',
         '7/1/20',
         '7/15/20',
-        '8/1/20'
+        '8/1/20',
+        '8/15/20',
+        '9/1/20'
     ];
 
     queue()
     	// .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/counties_covid_usa_aug2020.geojson")
     	// .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/filtered_covid_aug.geojson")
-      .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/filtered_covid_aug.min.topojson")
+      .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/filtered_covid_sep.min.topojson")
         // .defer(geoJsonHelper, "/data/filtered_covid_aug.min.topojson")
         .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/kxl_route.geojson")
         .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/ihs_facilities.geojson")
@@ -253,11 +255,11 @@
                             ['get', '3/1/20'],
                             0,
                             '#FFFED6',
-                            25,
+                            12,
                             "#CAEABF",
-                            50,
+                            25,
                             "#5CC1C0",
-                            500,
+                            1000,
                             '#26388F',
 
                         ],
@@ -378,7 +380,8 @@
 
     function update(ind) {
         var temp = dates[ind]
-        return ['interpolate', ['linear'], ['get', temp], 0, '#FFFED6', 25, "#CAEABF", 50, "#5CC1C0", 500, '#26388F']
+        // return ['interpolate', ['linear'], ['get', temp], 0, '#FFFED6', 200, "#CAEABF", 600, "#5CC1C0", 800, '#26388F']
+         return ['interpolate', ['linear'], ['get', temp], 0, '#FFFED6', 100, "#CAEABF", 300, "#5CC1C0", 450, '#26388F']
     }
 
 //     map.on('load', function() {
