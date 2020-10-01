@@ -153,6 +153,7 @@
 <script src="https://d3js.org/queue.v1.min.js"></script>
 <script src="https://d3js.org/topojson.v1.min.js"></script>
 <script>
+
 	mapboxgl.accessToken = 'pk.eyJ1IjoidmFzdGF2YSIsImEiOiJja2F3cXAwbm8yZWF3MnFwbHgwNW1mYzJjIn0.MhdHxkvWsbbjRyjqtNKP7Q';
     var map = new mapboxgl.Map({
         container: 'map',
@@ -192,6 +193,7 @@
         // .defer(geoJsonHelper, "/data/filtered_covid_aug.min.topojson")
         .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/kxl_route.geojson")
         .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/ihs_facilities.geojson")
+        .defer(d3.json, "data/kxl_camps_fixed.geojson")
         .await(ready);
 
         function geoJsonHelper(url) {
@@ -235,7 +237,7 @@
       //   f(error, data);
       // })
 
-    	function ready(error, file1, file2, file3) {
+    	function ready(error, file1, file2, file3, file4) {
         // console.log(file1);
         var counties = topojson.feature(file1, file1.objects.collection);
         // console.log(counties);
@@ -324,15 +326,31 @@
                     'circle-stroke-color': 'white',
                     'circle-stroke-width': 1,
                     'circle-opacity': 0.9
-                // // get the icon name from the source's "icon" property
-                // // concatenate the name to get an icon from the style's sprite sheet
-                // 'icon-image': ['concat', ['get', 'icon'], '-15'],
-                // // get the title name from the source's "title" property
-                // 'text-field': ['get', 'title'],
-                // 'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-                // 'text-offset': [0, 0.6],
-                // 'text-anchor': 'top'
                 }
+            })
+
+            map.loadImage("cross-11.png", function(error, image) {
+              if (error) throw error;
+              map.addImage('custom-marker', image);
+            })
+
+            map.addSource('kxl-camps', {
+                'type': 'geojson',
+                data: file4
+            });
+
+            map.addLayer({
+              'id': 'kxl-campsPoints',
+              'type': 'symbol',
+              'source': 'kxl-camps',
+              'layout': {
+                'icon-image': 'custom-marker',
+                'icon-allow-overlap': true
+              }
+              // 'paint': {
+              //   'circle-radius': 5,
+              //   'circle-color': "black"
+              // }
             })
 
 
