@@ -134,11 +134,11 @@
             <div class="bar"></div>
             <div class='row labels'>
               <div class='label' style="text-align: start">0</div>
-              <div class='label' style="text-align: start">100</div>
-              <div class='label'>200</div>
-              <div class='label'>300</div>
+              <div class='label' style="text-align: start">200</div>
               <div class='label'>400</div>
-              <div class='label' style="text-align: end">500+</div>
+              <div class='label'>600</div>
+              <div class='label'>800</div>
+              <div class='label' style="text-align: end">1000+</div>
             </div>
             <div>Cases</div>
             <b>Health facilities</b>
@@ -401,8 +401,8 @@
 
     function update(ind) {
         var temp = dates[ind]
-        // return ['interpolate', ['linear'], ['get', temp], 0, '#FFFED6', 200, "#CAEABF", 600, "#5CC1C0", 800, '#26388F']
-         return ['interpolate', ['linear'], ['get', temp], 0, '#FFFED6', 100, "#CAEABF", 300, "#5CC1C0", 450, '#26388F']
+        return ['interpolate', ['linear'], ['get', temp], 0, '#FFFED6', 200, "#CAEABF", 600, "#5CC1C0", 900, '#26388F']
+         // return ['interpolate', ['linear'], ['get', temp], 0, '#FFFED6', 100, "#CAEABF", 300, "#5CC1C0", 450, '#26388F']
     }
 
 //     map.on('load', function() {
