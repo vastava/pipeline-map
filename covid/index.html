@@ -129,7 +129,7 @@
         <h2>COVID-19 by county</h2>
         <i>Drag the slider to see the number of cases over time.</i><br>
         <label id="date">3/1/20</label>
-        <input id="slider" type="range" min="0" max="13" step="1" value="0" />
+        <input id="slider" type="range" min="0" max="15" step="1" value="0" />
         <div id="legend" class="legend">
             <div class="bar"></div>
             <div class='row labels'>
@@ -183,17 +183,19 @@
         '8/1/20',
         '8/15/20',
         '9/1/20',
-        '9/15/20'
+        '9/15/20',
+        '10/1/20',
+        '10/15/20'
     ];
 
     queue()
     	// .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/counties_covid_usa_aug2020.geojson")
     	// .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/filtered_covid_aug.geojson")
-      .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/filtered_covid_sep_2.min.topojson")
+      .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/filtered_covid_oct.min.topojson")
         // .defer(geoJsonHelper, "/data/filtered_covid_aug.min.topojson")
         .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/kxl_route.geojson")
         .defer(d3.json, "https://raw.githubusercontent.com/vastava/pipeline-map/master/covid/data/ihs_facilities.geojson")
-        .defer(d3.json, "data/kxl_camps_fixed.geojson")
+        // .defer(d3.json, "data/kxl_camps_fixed.geojson")
         .await(ready);
 
         function geoJsonHelper(url) {
@@ -237,7 +239,7 @@
       //   f(error, data);
       // })
 
-    	function ready(error, file1, file2, file3, file4) {
+    	function ready(error, file1, file2, file3) {
         // console.log(file1);
         var counties = topojson.feature(file1, file1.objects.collection);
         // console.log(counties);
@@ -329,29 +331,29 @@
                 }
             })
 
-            map.loadImage("cross-11.png", function(error, image) {
-              if (error) throw error;
-              map.addImage('custom-marker', image);
-            })
+            // map.loadImage("cross-11.png", function(error, image) {
+            //   if (error) throw error;
+            //   map.addImage('custom-marker', image);
+            // })
 
-            map.addSource('kxl-camps', {
-                'type': 'geojson',
-                data: file4
-            });
+            // map.addSource('kxl-camps', {
+            //     'type': 'geojson',
+            //     data: file4
+            // });
 
-            map.addLayer({
-              'id': 'kxl-campsPoints',
-              'type': 'symbol',
-              'source': 'kxl-camps',
-              'layout': {
-                'icon-image': 'custom-marker',
-                'icon-allow-overlap': true
-              }
-              // 'paint': {
-              //   'circle-radius': 5,
-              //   'circle-color': "black"
-              // }
-            })
+            // map.addLayer({
+            //   'id': 'kxl-campsPoints',
+            //   'type': 'symbol',
+            //   'source': 'kxl-camps',
+            //   'layout': {
+            //     'icon-image': 'custom-marker',
+            //     'icon-allow-overlap': true
+            //   }
+            //   // 'paint': {
+            //   //   'circle-radius': 5,
+            //   //   'circle-color': "black"
+            //   // }
+            // })
 
 
                 //move county layer under KXL
